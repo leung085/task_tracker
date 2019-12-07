@@ -20,8 +20,19 @@
 * Boards can have sprints
 
 
-Code features
+## Code features
 
-Classes
+### Classes
+* Task
+* User
+* Boards (Projects)
+* Epic
+* Sprint
 
-Design patterns
+### Design patterns
+* Factory: When creating a new item, can create a task, epic, or board
+* Facade: When creating a new item
+
+### Apps
+* user (registration, login)
+* task_tracker (main app)
