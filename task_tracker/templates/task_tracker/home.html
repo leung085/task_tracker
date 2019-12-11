@@ -1,10 +1,44 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Task Tracker</title>
-  </head>
-  <body>
-    Welcome to Task Tracker!
-  </body>
-</html>
+{% extends 'task_tracker/base.html '%}
+
+{% block content %}
+<table class="task-list">
+  <tr>
+    <td>
+      To Do
+      {% for task in todos %}
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">{{ task.name }}</h5>
+            <p class="card-text">{{ task.description }}</p>
+            <a href="#" class="btn btn-primary">Edit</a>
+          </div>
+        </div>
+      {% endfor %}
+    </td>
+    <td>
+      In Progress
+      {% for task in ip %}
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">{{ task.name }}</h5>
+            <p class="card-text">{{ task.description }}</p>
+            <a href="#" class="btn btn-primary">Edit</a>
+          </div>
+        </div>
+      {% endfor %}
+    </td>
+    <td>
+      Done
+      {% for task in done %}
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">{{ task.name }}</h5>
+            <p class="card-text">{{ task.description }}</p>
+            <a href="#" class="btn btn-primary">Edit</a>
+          </div>
+        </div>
+      {% endfor %}
+    </td>
+  </tr>
+</table>
+{% endblock content %}
