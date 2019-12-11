@@ -16,7 +16,7 @@ class Task(models.Model):
 
     name = models.CharField(max_length=100)
     description = models.TextField()
-    date_posted = models.DateTimeField()
+    date_posted = models.DateTimeField(default=timezone.now)
     status = models.CharField(
         max_length = 4,
         choices = TASK_STATUS_CHOICES,

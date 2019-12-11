@@ -1,15 +1,9 @@
 from django.shortcuts import render
+from .models import Task
 
-todos = [
-    {'name': 'Task 1 Name', 'description': 'Task 1 Description', 'status': 'TODO'},
-    {'name': 'Task 2 Name', 'description': 'Task 2 Description', 'status': 'TODO'},
-]
-ip = [
-    {'name': 'Task 3 Name', 'description': 'Task 3 Description', 'status': 'IP'},
-]
-done = [
-    {'name': 'Task 4 Name', 'description': 'Task 4 Description', 'status': 'DONE'},
-]
+todos = Task.objects.filter(status='TODO')
+ip = Task.objects.filter(status='IP')
+done = Task.objects.filter(status='DONE')
 
 # Create your views here.
 def home(request):
