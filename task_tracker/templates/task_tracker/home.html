@@ -8,9 +8,8 @@
       {% for task in todos %}
         <div class="card" style="width: 18rem;">
           <div class="card-body">
-            <h5 class="card-title">{{ task.name }}</h5>
+            <h5 class="card-title"><a href="{% url 'task_details' task.id %}">{{ task.name }}</a></h5>
             <p class="card-text">{{ task.description }}</p>
-            <a href="#" class="btn btn-primary">Edit</a>
           </div>
         </div>
       {% endfor %}
@@ -20,9 +19,8 @@
       {% for task in ip %}
         <div class="card" style="width: 18rem;">
           <div class="card-body">
-            <h5 class="card-title">{{ task.name }}</h5>
+            <h5 class="card-title"><a href="{% url 'task_details' task.id %}">{{ task.name }}</a></h5>
             <p class="card-text">{{ task.description }}</p>
-            <a href="#" class="btn btn-primary">Edit</a>
           </div>
         </div>
       {% endfor %}
@@ -32,9 +30,8 @@
       {% for task in done %}
         <div class="card" style="width: 18rem;">
           <div class="card-body">
-            <h5 class="card-title">{{ task.name }}</h5>
+            <h5 class="card-title"><a href="{% url 'task_details' task.id %}">{{ task.name }}</a></h5>
             <p class="card-text">{{ task.description }}</p>
-            <a href="#" class="btn btn-primary">Edit</a>
           </div>
         </div>
       {% endfor %}

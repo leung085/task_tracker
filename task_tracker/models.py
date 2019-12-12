@@ -1,8 +1,8 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.urls import reverse
 
-# Create your models here.
 class Task(models.Model):
     TO_DO = "TODO"
     IN_PROGRESS = "IP"
@@ -23,3 +23,6 @@ class Task(models.Model):
     )
     author = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True, related_name='author')
     assignee = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='assignee')
+
+    def get_absolute_url(self):
+        return reverse('task_details', args=[str(self.id)])
