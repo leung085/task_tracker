@@ -26,12 +26,12 @@ class TaskDetailView(DetailView):
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
     model = Task
-    fields = ['name', 'description', 'status', 'author', 'assignee']
+    fields = ['name', 'description', 'status', 'author', 'assignee', 'story_points', 'board']
 
 
 class TaskUpdateView(LoginRequiredMixin, UpdateView):
     model = Task
-    fields = ['name', 'description', 'status', 'author', 'assignee']
+    fields = ['name', 'description', 'status', 'author', 'assignee', 'story_points', 'board']
 
 
 class TaskDeleteView(LoginRequiredMixin, DeleteView):
