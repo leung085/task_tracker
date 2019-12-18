@@ -12,6 +12,9 @@ class Board(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('board_details', args=[str(self.id)])
+
 class Task(models.Model):
     TO_DO = "TODO"
     IN_PROGRESS = "IP"
