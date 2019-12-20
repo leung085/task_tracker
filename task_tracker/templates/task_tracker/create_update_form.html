@@ -6,11 +6,11 @@
     <form method="post">
       {% csrf_token %}
       <fieldset class="form-group">
-        <legend class="border-bottom mb-4">Create New Board</legend>
+        <legend class="border-bottom mb-4">Create New {{ name }}</legend>
         {{ form | crispy }}
       </fieldset>
       <div class="form-group">
-        <button type="submit" class="btn btn-outline-info">Create Board</button>
+        <button type="submit" class="btn btn-outline-info">Create {{ name }}</button>
       </div>
     </form>
   </div>

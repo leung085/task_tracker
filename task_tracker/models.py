@@ -15,6 +15,19 @@ class Board(models.Model):
     def get_absolute_url(self):
         return reverse('board_details', args=[str(self.id)])
 
+class Epic(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    date_posted = models.DateTimeField(default=timezone.now)
+    board = models.ForeignKey(Board, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('epic_details', args=[str(self.id)])
+
+
 class Task(models.Model):
     TO_DO = "TODO"
     IN_PROGRESS = "IP"
@@ -35,8 +48,9 @@ class Task(models.Model):
     )
     author = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True, related_name='author')
     assignee = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='assignee')
-    story_points = models.IntegerField(null=True, validators=[MinValueValidator(1), MaxValueValidator(100)])
+    story_points = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(1), MaxValueValidator(100)])
     board = models.ForeignKey(Board, on_delete=models.CASCADE)
+    epic = models.ForeignKey(Epic, on_delete=models.DO_NOTHING, null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('task_details', args=[str(self.id)])

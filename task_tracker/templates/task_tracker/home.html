@@ -1,39 +1,73 @@
 {% extends 'task_tracker/base.html '%}
 
+{% load task_extras %}
+
 {% block content %}
+
+<h1>{{ board_name }}</h1>
 <table class="task-list">
   <tr>
     <td>
       To Do
       {% for task in todos %}
+        {% with next_element=todos|next:forloop.counter0 %}
+        {% with previous_element=todos|previous:forloop.counter0 %}
+        {% if task.epic.id != previous_element.epic.id and task.epic.id %}
+          <table><tr><td><a href="{% url 'epic_details' task.epic.id %}">{{ task.epic.name }}</a>
+        {% endif %}
         <div class="card" style="width: 18rem;">
           <div class="card-body">
             <h5 class="card-title"><a href="{% url 'task_details' task.id %}">{{ task.name }}</a></h5>
             <p class="card-text">{{ task.description }}</p>
           </div>
         </div>
+        {% if task.epic.id != next_element.epic.id and task.epic.id %}
+          </td></tr></table>
+        {% endif %}
+        {% endwith %}
+        {% endwith %}
       {% endfor %}
     </td>
     <td>
       In Progress
       {% for task in ip %}
+        {% with next_element=ip|next:forloop.counter0 %}
+        {% with previous_element=ip|previous:forloop.counter0 %}
+        {% if task.epic.id != previous_element.epic.id and task.epic.id %}
+          <table><tr><td>{{ task.epic.name }}
+        {% endif %}
         <div class="card" style="width: 18rem;">
           <div class="card-body">
             <h5 class="card-title"><a href="{% url 'task_details' task.id %}">{{ task.name }}</a></h5>
             <p class="card-text">{{ task.description }}</p>
           </div>
         </div>
+        {% if task.epic.id != next_element.epic.id and task.epic.id %}
+          </td></tr></table>
+        {% endif %}
+        {% endwith %}
+        {% endwith %}
       {% endfor %}
     </td>
     <td>
       Done
       {% for task in done %}
+        {% with next_element=done|next:forloop.counter0 %}
+        {% with previous_element=done|previous:forloop.counter0 %}
+        {% if task.epic.id != previous_element.epic.id and task.epic.id %}
+          <table><tr><td>{{ task.epic.name }}
+        {% endif %}
         <div class="card" style="width: 18rem;">
-          <div class="card-body">
+            <div class="card-body">
             <h5 class="card-title"><a href="{% url 'task_details' task.id %}">{{ task.name }}</a></h5>
             <p class="card-text">{{ task.description }}</p>
           </div>
         </div>
+        {% if task.epic.id != next_element.epic.id and task.epic.id %}
+          </td></tr></table>
+        {% endif %}
+        {% endwith %}
+        {% endwith %}
       {% endfor %}
     </td>
   </tr>
