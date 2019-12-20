@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'task_tracker.apps.TaskTrackerConfig',
+    'organizations.apps.OrganizationsConfig',
     'users.apps.UsersConfig',
     'crispy_forms',
     'django.contrib.admin',

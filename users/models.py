@@ -5,6 +5,8 @@ from PIL import Image
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(upload_to="profile_pics", default='default.jpg')
+    organization = models.ForeignKey('organizations.Organization', on_delete=models.DO_NOTHING, null=True, blank=True)
+    org_admin = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.user.username} Profile'
