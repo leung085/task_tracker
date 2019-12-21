@@ -80,9 +80,14 @@ class TaskDeleteView(LoginRequiredMixin, DeleteView):
 
 
 def board(request, **kwargs):
-    board_exists = Board.objects.filter(pk=kwargs.get('pk')).count()
+    board = Board.objects.filter(pk=kwargs.get('pk'))
+    board_exists = board.count()
     if not board_exists:
         raise Exception("Board doesn't exist.")
+
+    if request.user.profile.organization != board.first().organization:
+        raise Exception("Not allowed to view board.")
+
     todos = Task.objects.filter(status='TODO', board=kwargs.get('pk')).order_by(F('epic__pk').desc(nulls_last=True))
     ip = Task.objects.filter(status='IP', board=kwargs.get('pk')).order_by(F('epic__pk').desc(nulls_last=True))
     done = Task.objects.filter(status='DONE', board=kwargs.get('pk')).order_by(F('epic__pk').desc(nulls_last=True))
@@ -107,6 +112,11 @@ class BoardCreateView(LoginRequiredMixin, CreateView):
         context = super(BoardCreateView, self).get_context_data(**kwargs)
         context.update({'name': 'Board'})
         return context
+
+    def form_valid(self, form):
+        form.instance.organization = self.request.user.profile.organization
+        return super().form_valid(form)
+
 
 class BoardUpdateView(LoginRequiredMixin, UpdateView):
     model = Board

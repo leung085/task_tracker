@@ -8,6 +8,7 @@ class Board(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     date_created = models.DateTimeField(default=timezone.now)
+    organization = models.ForeignKey('organizations.Organization', on_delete=models.DO_NOTHING, null=True, blank=True)
 
     def __str__(self):
         return self.name
