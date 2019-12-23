@@ -3,13 +3,15 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 # ??? Check if ListView can create something like Kanban/Scrum board
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
 from django.db.models import F
 from .models import Task, Board, Epic
 
+@login_required
 def home(request):
-    todos = Task.objects.filter(status='TODO').order_by(F('epic__pk').desc(nulls_last=True))
-    ip = Task.objects.filter(status='IP').order_by(F('epic__pk').desc(nulls_last=True))
-    done = Task.objects.filter(status='DONE').order_by(F('epic__pk').desc(nulls_last=True))
+    todos = Task.objects.filter(status='TODO', board__organization=request.user.profile.organization).order_by(F('epic__pk').desc(nulls_last=True))
+    ip = Task.objects.filter(status='IP', board__organization=request.user.profile.organization).order_by(F('epic__pk').desc(nulls_last=True))
+    done = Task.objects.filter(status='DONE', board__organization=request.user.profile.organization).order_by(F('epic__pk').desc(nulls_last=True))
 
     context = {
         'todos': todos,
